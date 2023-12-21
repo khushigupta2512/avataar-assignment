@@ -7,19 +7,132 @@
 }
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s ease-in;
   font-family: "Ubuntu", sans-serif;
-  color: $text;
-  height: 200vh;
+  background-color: $bg1;
+  // color: $text;
+  // height: 200vh;
+  overflow: hidden;
+
+  // &.blue{
+  //   background-color: #428aa6;
+  // }
 }
 
-button {
-  font-family: inherit;
-  outline: none;
-  border: none;
-  background: none;
-  letter-spacing: inherit;
-  color: inherit;
-  font-size: inherit;
-  text-align: inherit;
-  padding: 0;
+.card {
+  position: absolute;
+  width: 300px;
+  height: 450px;
+  left: -35px;
+  right: 0;
+  margin: auto;
+  transition: transform 0.4s ease, opacity 0.4s ease,
+    box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+  opacity: 0.5;
+  transform: scale(0.5);
+  z-index: 1;
+  border-radius: 10px;
+
+  &.active {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 3;
+    border-radius: 10px;
+  }
+
+  &.hover {
+    box-shadow: 0px 10px 15px rgba(66, 138, 166, 0.5),
+      0px 20px 25px rgba(66, 138, 166, 0.3);
+  }
+  &.left {
+    transform: translateX(-50%) scale(0.75);
+    opacity: 0.7;
+    z-index: 2;
+  }
+  &.right {
+    transform: translateX(50%) scale(0.75);
+    opacity: 0.7;
+    z-index: 2;
+  }
+  &.far-left {
+    transform: translateX(-100%) scale(0.5);
+    opacity: 0.3;
+    z-index: 1;
+  }
+  &.far-right {
+    transform: translateX(100%) scale(0.5);
+    opacity: 0.3;
+    z-index: 1;
+  }
+}
+.container {
+  width: 100%;
+  height: auto;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: auto;
+}
+&.left {
+  width: 70%;
+}
+&.right {
+  width: 70%;
+}
+
+.cards {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 100%;
+  padding: auto;
+  margin-top: 30%;
+  margin: auto;
+}
+img {
+  padding-top: -50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: fill;
+}
+
+.card-title {
+  position: relative;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $bg1;
+  background: rgba(5, 5, 5, 0.5);
+  padding: 10px 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 10;
+  opacity: 0.7;
+  font-size: 22px;
+
+  .card.active & {
+    opacity: 1;
+    height: auto;
+    width: auto;
+  }
+}
+
+.card.far-left,
+.card.far-right {
+  opacity: 0.1;
+}
+
+.card.left,
+.card.right {
+  opacity: 0.7;
 }
