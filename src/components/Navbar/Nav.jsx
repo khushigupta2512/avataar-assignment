@@ -6,7 +6,7 @@ import Ham from "./HamburgerMenu/Ham";
 
 const Nav = () => {
   const { width } = useViewport();
-  const compact = 635;
+  const compact = 770;
 
   if (width < compact) {
     return (
