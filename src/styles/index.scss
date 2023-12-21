@@ -14,12 +14,7 @@ body {
   font-family: "Ubuntu", sans-serif;
   background-color: $bg1;
   // color: $text;
-  // height: 200vh;
-  overflow: hidden;
-
-  // &.blue{
-  //   background-color: #428aa6;
-  // }
+  height: 100vh;
 }
 
 .card {
@@ -78,29 +73,30 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: auto;
-}
-&.left {
-  width: 70%;
-}
-&.right {
-  width: 70%;
+
+  &.left {
+    width: 70%;
+  }
+  &.right {
+    width: 70%;
+  }
 }
 
 .cards {
   position: relative;
   width: 100%;
   height: 100%;
-  margin-bottom: 100%;
-  padding: auto;
-  margin-top: 30%;
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 img {
   padding-top: -50%;
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  object-fit: fill;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .card-title {

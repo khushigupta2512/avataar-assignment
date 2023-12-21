@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 const Carousel = () => {
   const [activeItem, setActiveItem] = useState(1);
   const cards = [
-    { source: "imagesearbuds.png", title: "Product name" },
-    { source: "images\books.png", title: "Product name" },
-    { source: "imagesgame.png", title: "Product name" },
-    { source: "imagesmovie.png", title: "Product name" },
-    { source: "imagesoutfits.png", title: "Product name" },
+    { imgSrc: "/earbuds.png", title: "Electronics" },
+    { imgSrc: "/Books.png", title: "Books" },
+    { imgSrc: "/outfits.png", title: "Clothing" },
+    { imgSrc: "/movie.png", title: "Movies" },
+    { imgSrc: "/game.png", title: "Games" },
   ];
   const updateActiveItem = (index) => {
     setActiveItem(index);
@@ -53,7 +53,7 @@ const Carousel = () => {
             onClick={() => updateActiveItem(index + 1)}
             id={`card-${index + 1}`}
           >
-            <img src={card.source} alt={`Card ${index + 1}`} />
+            <img src={`${card.imgSrc}`} alt={`Card ${index + 1}`} />
             <div className="card-title">{card.title}</div>
           </div>
         ))}
