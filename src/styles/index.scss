@@ -8,19 +8,8 @@
 
 body {
   font-family: "Ubuntu", sans-serif;
-  color: $text;
-  height: 200vh;
+  background-color: $bg1;
+  // color: $text;
+  min-height: 100vh;
   width: 100%;
-}
-
-button {
-  font-family: inherit;
-  outline: none;
-  border: none;
-  background: none;
-  letter-spacing: inherit;
-  color: inherit;
-  font-size: inherit;
-  text-align: inherit;
-  padding: 0;
 }
