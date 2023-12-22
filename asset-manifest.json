@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/avataar-assignment/static/css/main.1dc1e782.css",
-    "main.js": "/avataar-assignment/static/js/main.54908780.js",
-    "index.html": "/avataar-assignment/index.html",
-    "main.1dc1e782.css.map": "/avataar-assignment/static/css/main.1dc1e782.css.map",
-    "main.54908780.js.map": "/avataar-assignment/static/js/main.54908780.js.map"
+    "main.css": "./static/css/main.1dc1e782.css",
+    "main.js": "./static/js/main.74f268c6.js",
+    "index.html": "./index.html",
+    "main.1dc1e782.css.map": "./static/css/main.1dc1e782.css.map",
+    "main.74f268c6.js.map": "./static/js/main.74f268c6.js.map"
   },
   "entrypoints": [
     "static/css/main.1dc1e782.css",
-    "static/js/main.54908780.js"
+    "static/js/main.74f268c6.js"
   ]
 }
