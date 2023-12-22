@@ -107,7 +107,10 @@ const Carousel = () => {
       <div className={styles.cards} ref={cardsRef}>
         {displayCards.map((card) => (
           <div key={card.id} className={styles.card} id={`${card.idx}`}>
-            <img src={`/carousel/${card.imgSrc}`} alt={`Card ${card.id + 1}`} />
+            <img
+              src={`${process.env.PUBLIC_URL}/carousel${card.imgSrc}`}
+              alt={`Card ${card.id + 1}`}
+            />
             <div className={styles.title}>{card.title}</div>
           </div>
         ))}

@@ -12,7 +12,10 @@ const Nav = () => {
     return (
       <div className={styles.nav}>
         <div className={styles.nav__logo}>
-          <img src="/logo.jpg" alt="avataar_assignment_logo" />
+          <img
+            src={process.env.PUBLIC_URL + "/logo.jpg"}
+            alt="avataar_assignment_logo"
+          />
           <span>E-COMM</span>
         </div>
         <Ham />
@@ -22,14 +25,17 @@ const Nav = () => {
   return (
     <div className={styles.nav}>
       <div className={styles.nav__logo}>
-        <img src="/logo.jpg" alt="avataar_assignment_logo" />
+        <img
+          src={process.env.PUBLIC_URL + "/logo.jpg"}
+          alt="avataar_assignment_logo"
+        />
         <span>E-COMM</span>
       </div>
       <NavList />
       <div className={styles.nav__search}>
         <img
           className={styles.nav__search_icon}
-          src="/search.png"
+          src={process.env.PUBLIC_URL + "/search.png"}
           alt="search"
         />
         <input type="text" placeholder="Search something" />
