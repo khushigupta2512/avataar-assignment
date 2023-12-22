@@ -1,38 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./Carousel.module.scss";
+
+const cards = [
+  { id: 1, idx: 1, imgSrc: "/dairy.jpg", title: "Dairy" },
+  { id: 2, idx: 2, imgSrc: "/utensils.jpg", title: "Utensils" },
+  { id: 3, idx: 3, imgSrc: "/pots.webp", title: "Flower Pots" },
+  { id: 4, idx: 4, imgSrc: "/planners.webp", title: "Office Planners" },
+  { id: 5, idx: 5, imgSrc: "/garden.jpg", title: "Gardening Equipments" },
+];
 
 const Carousel = () => {
   const [activeItem, setActiveItem] = useState(1);
-  const cards = [
-    { imgSrc: "/earbuds.png", title: "Electronics" },
-    { imgSrc: "/Books.png", title: "Books" },
-    { imgSrc: "/outfits.png", title: "Clothing" },
-    { imgSrc: "/movie.png", title: "Movies" },
-    { imgSrc: "/game.png", title: "Games" },
-  ];
+  const [displayCards, setDisplayCards] = useState(cards);
+  const cardsRef = useRef(null);
+
+  useEffect(() => {
+    if (cards.length < 7) {
+      let c = [...cards];
+      for (let i = cards.length; i < 7; i++) {
+        c.push({ ...cards[i % cards.length], id: i + 1 });
+      }
+      setDisplayCards(c);
+      updateActiveItem(c.filter((ele) => ele.id == 4)[0].idx);
+
+      return () => {};
+    }
+    setDisplayCards(cards.slice(0, 7));
+    updateActiveItem(4);
+    return () => {};
+  }, []);
+
   const updateActiveItem = (index) => {
     setActiveItem(index);
   };
   const handleArrowClick = (direction) => {
-    const newIndex =
-      direction === "left"
-        ? activeItem > 1
-          ? activeItem - 1
-          : cards.length
-        : activeItem < cards.length
-        ? activeItem + 1
-        : 1;
+    const childcards = cardsRef.current.children;
+    console.log(
+      "Last: ",
+      childcards[childcards.length - 1].id,
+      "First: ",
+      childcards[0].id
+    );
+    if (direction === "left") {
+      let firstIndex = parseInt(childcards[0].id);
+      firstIndex = firstIndex - 1 < 1 ? cards.length : firstIndex - 1;
+      console.log(firstIndex);
 
-    updateActiveItem(newIndex);
-  };
+      let newCards = [
+        cards.filter((ele) => ele.idx == firstIndex)[0],
+        ...displayCards.slice(0, displayCards.length - 1),
+      ];
+      newCards = newCards.map((ele, index) => ({ ...ele, id: index + 1 }));
 
-  const getCardClassName = (index) => {
-    const position = index - activeItem;
-    const positions = [-2, -1, 0, 1, 2];
-    const className = positions.includes(position)
-      ? `card ${position === 0 ? "active" : position > 0 ? "right" : "left"}`
-      : `card far-${position > 0 ? "right" : "left"}`;
+      setDisplayCards(newCards);
+      console.log(displayCards);
+      updateActiveItem(displayCards.filter((ele) => ele.id == 3)[0].idx);
+    }
+    if (direction === "right") {
+      let lastIndex = parseInt(childcards[childcards.length - 1].id);
+      lastIndex = lastIndex + 1 > cards.length ? 1 : lastIndex + 1;
+      console.log(lastIndex);
 
-    return className;
+      let newCards = [
+        ...displayCards.slice(1, displayCards.length),
+        cards.filter((ele) => ele.idx == lastIndex)[0],
+      ];
+      newCards = newCards.map((ele, index) => ({ ...ele, id: index + 1 }));
+
+      setDisplayCards(newCards);
+      console.log(displayCards);
+      updateActiveItem(displayCards.filter((ele) => ele.id == 5)[0].idx);
+    }
   };
 
   useEffect(() => {
@@ -44,31 +82,25 @@ const Carousel = () => {
   }, [activeItem]);
 
   return (
-    <div className="container">
-      <div className="cards">
-        {cards.map((card, index) => (
-          <div
-            key={index}
-            className={getCardClassName(index + 1)}
-            onClick={() => updateActiveItem(index + 1)}
-            id={`card-${index + 1}`}
-          >
-            <img src={`${card.imgSrc}`} alt={`Card ${index + 1}`} />
-            <div className="card-title">{card.title}</div>
+    <div className={styles.container}>
+      <div className={styles.cards} ref={cardsRef}>
+        {displayCards.map((card) => (
+          <div key={card.id} className={styles.card} id={`${card.idx}`}>
+            <img src={`/carousel/${card.imgSrc}`} alt={`Card ${card.id + 1}`} />
+            <div className={styles.title}>{card.title}</div>
           </div>
         ))}
       </div>
 
-      <div className="carousel-nav">
-        <button onClick={() => handleArrowClick("left")}>&lt;</button>
+      <div className={styles.carousel_nav}>
+        <button onClick={() => handleArrowClick("left")}>←</button>
         {cards.map((_, index) => (
-          <button
+          <div
             key={index}
-            className={activeItem === index + 1 ? "active" : ""}
-            onClick={() => updateActiveItem(index + 1)}
-          ></button>
+            className={activeItem === index + 1 ? styles.active : ""}
+          ></div>
         ))}
-        <button onClick={() => handleArrowClick("right")}>&gt;</button>
+        <button onClick={() => handleArrowClick("right")}>→</button>
       </div>
     </div>
   );
