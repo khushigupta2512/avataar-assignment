@@ -35,42 +35,63 @@ const Carousel = () => {
   };
   const handleArrowClick = (direction) => {
     const childcards = cardsRef.current.children;
-    console.log(
-      "Last: ",
-      childcards[childcards.length - 1].id,
-      "First: ",
-      childcards[0].id
-    );
+
+    for (let i = 0; i < childcards.length; i++) {
+      childcards[i].classList.add(styles.transition);
+    }
+
     if (direction === "left") {
-      let firstIndex = parseInt(childcards[0].id);
-      firstIndex = firstIndex - 1 < 1 ? cards.length : firstIndex - 1;
-      console.log(firstIndex);
-
-      let newCards = [
-        cards.filter((ele) => ele.idx == firstIndex)[0],
-        ...displayCards.slice(0, displayCards.length - 1),
-      ];
-      newCards = newCards.map((ele, index) => ({ ...ele, id: index + 1 }));
-
-      setDisplayCards(newCards);
-      console.log(displayCards);
-      updateActiveItem(displayCards.filter((ele) => ele.id == 3)[0].idx);
+      for (let i = 0; i < childcards.length; i++) {
+        childcards[i].classList.add(styles.transition_left);
+      }
     }
+
     if (direction === "right") {
-      let lastIndex = parseInt(childcards[childcards.length - 1].id);
-      lastIndex = lastIndex + 1 > cards.length ? 1 : lastIndex + 1;
-      console.log(lastIndex);
-
-      let newCards = [
-        ...displayCards.slice(1, displayCards.length),
-        cards.filter((ele) => ele.idx == lastIndex)[0],
-      ];
-      newCards = newCards.map((ele, index) => ({ ...ele, id: index + 1 }));
-
-      setDisplayCards(newCards);
-      console.log(displayCards);
-      updateActiveItem(displayCards.filter((ele) => ele.id == 5)[0].idx);
+      for (let i = 0; i < childcards.length; i++) {
+        childcards[i].classList.add(styles.transition_right);
+      }
     }
+
+    setTimeout(() => {
+      if (direction === "left") {
+        let firstIndex = parseInt(childcards[0].id);
+        firstIndex = firstIndex - 1 < 1 ? cards.length : firstIndex - 1;
+        console.log(firstIndex);
+
+        let newCards = [
+          cards.filter((ele) => ele.idx == firstIndex)[0],
+          ...displayCards.slice(0, displayCards.length - 1),
+        ];
+        newCards = newCards.map((ele, index) => ({ ...ele, id: index + 1 }));
+
+        setDisplayCards(newCards);
+        updateActiveItem(displayCards.filter((ele) => ele.id == 3)[0].idx);
+        for (let i = 0; i < childcards.length; i++) {
+          childcards[i].classList.remove(styles.transition_left);
+        }
+      }
+      if (direction === "right") {
+        let lastIndex = parseInt(childcards[childcards.length - 1].id);
+        lastIndex = lastIndex + 1 > cards.length ? 1 : lastIndex + 1;
+
+        let newCards = [
+          ...displayCards.slice(1, displayCards.length),
+          cards.filter((ele) => ele.idx == lastIndex)[0],
+        ];
+        newCards = newCards.map((ele, index) => ({ ...ele, id: index + 1 }));
+
+        setDisplayCards(newCards);
+
+        updateActiveItem(displayCards.filter((ele) => ele.id == 5)[0].idx);
+
+        for (let i = 0; i < childcards.length; i++) {
+          childcards[i].classList.remove(styles.transition_right);
+        }
+      }
+      for (let i = 0; i < childcards.length; i++) {
+        childcards[i].classList.remove(styles.transition);
+      }
+    }, 500);
   };
 
   useEffect(() => {
